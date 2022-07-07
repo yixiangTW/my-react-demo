@@ -1,18 +1,79 @@
-const MyReact = {}
-MyReact.createElement = function(tag, attrs, ...children) {
-  return {
-    tag,
-    attrs,
-    children
+import MyReact from "../lib/react";
+import MyReactDOM from "../lib/react-dom";
+
+
+const styleObj = {
+  color: "red",
+  fontSize: "20px",
+};
+
+class App extends MyReact.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      name: 'ilv',
+      job: '前端工程师',
+      hobby: '看电影'
+    }
+  }
+
+  clickBtn = () => {
+    this.setState({
+      name: 'ilv aaa'
+    })
+  };
+
+  render() {
+    console.log('app render')
+    return (
+      <div className="wrapper">
+        <h1 style={styleObj}>hello {this.state.name}</h1>
+        <Job job={this.state.job}/>
+        <Hobby hobby={this.state.hobby} />
+        <button onClick={this.clickBtn}>clickButton 修改名字</button>
+        <TestState />
+      </div>
+    );
   }
 }
 
-const clickBtn = () => {}
-const name = 'ilv'
+class Job extends MyReact.Component {
+  constructor(props) {
+    super(props)
+  }
 
-const element = <div className="wrapper">
-  <h1>hello {name}</h1>
-  <button onClick={clickBtn}>clickButton</button>
-</div>
+  render() {
+    console.log('job render')
+    return <div>我的工作是 {this.props.job}</div>
+  }
+}
 
-console.log(element)
+
+function Hobby(props) {
+  console.log('hobby render')
+  return <div>我的兴趣是 {props.hobby}</div>
+}
+
+class TestState extends MyReact.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      state1: ''
+    }
+  }
+  
+  update = () => {
+    this.setState({state1: 'aaa'})
+  }
+
+  render() {
+    console.log('testState render')
+    return (
+      <div onClick={this.update}>{this.state.state1} testState</div>
+    )
+  }
+
+}
+
+MyReactDOM.render(<App />, document.querySelector("#root"));
