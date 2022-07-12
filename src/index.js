@@ -19,13 +19,13 @@ class App extends MyReact.Component {
   }
 
   clickBtn = () => {
+    let newName = window.prompt('输入标题')
     this.setState({
-      name: 'ilv aaa'
+      name: newName
     })
   };
 
   render() {
-    console.log('app render')
     return (
       <div className="wrapper">
         <h1 style={styleObj}>hello {this.state.name}</h1>
@@ -44,14 +44,12 @@ class Job extends MyReact.Component {
   }
 
   render() {
-    console.log('job render')
     return <div>我的工作是 {this.props.job}</div>
   }
 }
 
 
 function Hobby(props) {
-  console.log('hobby render')
   return <div>我的兴趣是 {props.hobby}</div>
 }
 
@@ -68,9 +66,8 @@ class TestState extends MyReact.Component {
   }
 
   render() {
-    console.log('testState render')
     return (
-      <div onClick={this.update}>{this.state.state1} testState</div>
+      <div onClick={this.update}>{this.state.state1} testState 点击修改state</div>
     )
   }
 
