@@ -32,7 +32,7 @@ class App extends MyReact.Component {
         <Job job={this.state.job}/>
         <Hobby hobby={this.state.hobby} />
         <button onClick={this.clickBtn}>clickButton 修改名字</button>
-        <TestState />
+        <TestState init={1} name={this.state.name}/>
       </div>
     );
   }
@@ -57,17 +57,40 @@ class TestState extends MyReact.Component {
   constructor(props) {
     super(props)
     this.state = {
-      state1: ''
+      state1: 0
     }
+  }
+
+  componentWillMount() {
+    console.log('componentWillMount')
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount')
+    this.setState({state1: this.props.init})
+  }
+
+  componentDidUpdate() {
+    console.log('componentDidUpdate')
+  }
+
+  componentWillReceiveProps(newProps) {
+    console.log(newProps)
+  }
+
+  shouldComponentUpdate(props, state) {
+    console.log('shouldComponentUpdate')
+    console.log(props, state)
+    return true
   }
   
   update = () => {
-    this.setState({state1: 'aaa'})
+    this.setState({state1: this.state.state1 + this.props.init})
   }
 
   render() {
     return (
-      <div onClick={this.update}>{this.state.state1} testState 点击修改state</div>
+      <div onClick={this.update}>{this.state.state1} 点击+1 {this.props.name}</div>
     )
   }
 
